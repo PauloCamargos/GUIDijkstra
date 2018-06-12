@@ -1,4 +1,4 @@
-from graph_pack import graph, adjacency_list
+from graph_pack import GraphPack
 from PyQt4 import QtGui
 import design
 import sys
@@ -32,7 +32,7 @@ class DijkstraApp(QtGui.QMainWindow, design.Ui_MainWindow):
         """Searches the route between origin and destiny."""
         origin = self.cboxOrigin.currentText()      # Gets the origin city at the GUI
         destiny = self.cboxDestiny.currentText()    # Gets the destiny city at the GUI
-        route = graph.dijkstra()                    # Ajd list with the cities in route
+        route = self.my_graph.dijkstra()                    # Ajd list with the cities in route
         route_message = route.strRoute()            # Returns a string describing the route
         self.txtMessage.setPlainText(route_message) # Writes out the message
         # self.txtMessage.setPlainText("Origin: " + origin + "\n Destiny: " + destiny)
@@ -41,7 +41,7 @@ class DijkstraApp(QtGui.QMainWindow, design.Ui_MainWindow):
 
 def create_graph():
     """Creates and return the graph and sets edges between the cities."""
-    my_graph = graph.Graph()
+    my_graph = GraphPack.Graph()
     for c in city:
         my_graph.insertEnd(c)
     my_graph.setEdge("Capinópolis", "Centralina")
@@ -76,7 +76,6 @@ def main():
     form = DijkstraApp(my_graph)
     form.show()
     app.exec_()
-
 
 
 if __name__ == "__main__":
